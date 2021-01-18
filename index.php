@@ -56,8 +56,55 @@ instanziando le varie classi provare a stampare cercando di ottenere un log sens
         }
     }
 
-    $person1 = new Person ('Mario', 'Rossi', 'MRARSS75E05F052N');
-    echo 'Persona: <br>' . $person1;
+    class Employee extends Person {
+        private $freshman;
+        private $salary;
+        private $department;
+
+        public function __construct($name, $surname, $cf, $freshman, $salary, $department) {
+            parent::__construct($name, $surname, $cf);
+            $this -> setFreshman($freshman);            
+            $this -> setSalary($salary);
+            $this -> setDepartment($department);
+        }
+        public function getFreshman() {
+            return $this -> freshman;
+        }
+        public function setFreshman($freshman) {
+            $this -> freshman = $freshman;
+        }
+
+        public function getSalary() {
+            return $this -> salary;
+        }
+        public function setSalary($salary) {
+            $this -> salary = $salary;
+        }
+
+        public function getDepartment() {
+            return $this -> department;
+        }
+        public function setDepartment($department) {
+            $this -> department = $department;
+        }
+
+        public function __toString() {
+            return parent::__toString() . '<br>'
+                . 'freshman: ' . $this -> getFreshman() . '<br>'
+                . 'salary: ' . $this -> getSalary() . '$' . '<br>'
+                . 'department: ' . $this -> getDepartment() . '<br>';
+        }
+    }
+
+    $person = new Person ('Mario', 'Rossi', 'MRARSS75E05F052N');
+    // echo 'Persona: <br>' . $person;
+
+    $employee = new Employee ('Lucia', ' Verdi', 'VRDLCU75S65A638E', '099983', '2.000', 'hi-tech');
+
+    echo 'Persona: <br>' . $person . '<br><br>'
+        . 'Dipedente:<br>' . $employee;
+
+
 
 ?>
     
