@@ -215,8 +215,8 @@
 
         //boss ($name, $lastname, $dateOfBirth, $securyLvl, $ral, $mainTask, $idCode, $dateOfHiring, $profit, $vacancy, $sector, $employees = [])
         try {
-            $b1 = new Boss('Adriana', 'Margiotta', '19-12-1997', '10', '100000', 'Boos', '00001', '15-09-201', 'forever', 'IT', [$e1]);
-            $b1 -> setSecuryBoss(10);
+            $b1 = new Boss('Adriana', 'Margiotta', '19-12-1997', '10', '100000', 'Boos', '00001', '15-09-2011', '600000', 'forever', 'IT', [$e1]);
+            $b1 -> setSecuryBoss(7);
             echo 'Boss:<br>' . $b1 . '<br><br>';
         } catch (MoreCharactersName |  MoreCharactersLastname $e) {
             echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
