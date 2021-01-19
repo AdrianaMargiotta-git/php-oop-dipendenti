@@ -23,12 +23,18 @@
                 return $this -> name;
             }
             public function setName($name) {
+                if (strlen($name) < 3) {
+                    throw new Exception("Please enter a longer name");
+                }
                 $this -> name = $name;
             }
             public function getLastname() {
                 return $this -> lastname;
             }
             public function setLastname($lastname) {
+                if (strlen($lastname) < 3) {
+                    throw new Exception("Please enter a longer surname");
+                }
                 $this -> lastname = $lastname;
             }
             public function getFullname() {
@@ -100,6 +106,7 @@
                     . 'dateOfHiring: ' . $this -> dateOfHiring . '<br>';
             }
         }
+
         class Boss extends Employee {
             private $profit;
             private $vacancy;
@@ -156,44 +163,57 @@
                 return $str;
             }                    
         }
+
+        try {
+            $p1 = new Person(
+                'Mario',
+                'Rossi',
+                '(p)dateOfBirth',
+                '(p)securyLvl',
+            );
+            echo 'Person: ' . '<br>' . $p1 . '<br>';
+        } catch (Exception $e) {
+            echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
+        }
+
         $p1 = new Person(
             '(p)name',
             '(p)lastname',
             '(p)dateOfBirth',
             '(p)securyLvl',
         );
-        // echo 'p1:<br>' . $p1 . '<br><br>';
-        $e1 = new Employee(
-            '(e)name',
-            '(e)lastname',
-            '(e)dateOfBirth',
-            '(e)securyLvl',
-            '(e)ral',
-            '(e)mainTask',
-            '(e)idCode',
-            '(e)dateOfHiring',
-        );
+        echo 'p1:<br>' . $p1 . '<br><br>';
+        // $e1 = new Employee(
+        //     '(e)name',
+        //     '(e)lastname',
+        //     '(e)dateOfBirth',
+        //     '(e)securyLvl',
+        //     '(e)ral',
+        //     '(e)mainTask',
+        //     '(e)idCode',
+        //     '(e)dateOfHiring',
+        // );
         // echo 'e1:<br>' . $e1 . '<br><br>';
-        $b1 = new Boss(
-            '(b)name',
-            '(b)lastname',
-            '(b)dateOfBirth',
-            '(b)securyLvl',
-            '(b)ral',
-            '(b)mainTask',
-            '(b)idCode',
-            '(b)dateOfHiring',
-            '(b)profit', 
-            '(b)vacancy', 
-            '(b)sector', 
-            [
-                $e1,
-                $e1,
-                $e1,
-                $e1,
-            ]
-        );
-        echo 'b1:<br>' . $b1 . '<br><br>';
+        // $b1 = new Boss(
+        //     '(b)Mario',
+        //     '(b)Rossi',
+        //     '(b)dateOfBirth',
+        //     '(b)securyLvl',
+        //     '(b)ral',
+        //     '(b)mainTask',
+        //     '(b)idCode',
+        //     '(b)dateOfHiring',
+        //     '(b)profit', 
+        //     '(b)vacancy', 
+        //     '(b)sector', 
+        //     [
+        //         $e1,
+        //         $e1,
+        //         $e1,
+        //         $e1,
+        //     ]
+        // );
+        // echo 'b1:<br>' . $b1 . '<br><br>';
 
     ?>
     
