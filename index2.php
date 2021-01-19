@@ -78,6 +78,14 @@
                 return $this -> $ral;
             }
             public function setRal($ral) {
+                // if ($ral = max(min($ral, 100000), 10000)) {
+                //     throw new Exception("number not included in the range");
+                // }
+
+                if (is_numeric($ral) && $ral < 10000 || $ral > 100000) {
+                    throw new Exception("number not included in the range");
+                }
+
                 $this -> ral = $ral;
             }
             public function getMainTask() {
@@ -176,24 +184,24 @@
             echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
         }
 
-        $p1 = new Person(
-            '(p)name',
-            '(p)lastname',
-            '(p)dateOfBirth',
-            '(p)securyLvl',
-        );
-        echo 'p1:<br>' . $p1 . '<br><br>';
-        // $e1 = new Employee(
-        //     '(e)name',
-        //     '(e)lastname',
-        //     '(e)dateOfBirth',
-        //     '(e)securyLvl',
-        //     '(e)ral',
-        //     '(e)mainTask',
-        //     '(e)idCode',
-        //     '(e)dateOfHiring',
-        // );
-        // echo 'e1:<br>' . $e1 . '<br><br>';
+        try {
+            $e1 = new Employee(
+                '(e)name',
+                '(e)lastname',
+                '(e)dateOfBirth',
+                '(e)securyLvl',
+                '10000',
+                '(e)mainTask',
+                '(e)idCode',
+                '(e)dateOfHiring',
+            );
+            echo 'Employee:<br>' . $e1 . '<br><br>';
+        } catch (Exception $e) {
+           echo 'ERROR';
+        }
+        
+
+    
         // $b1 = new Boss(
         //     '(b)Mario',
         //     '(b)Rossi',
