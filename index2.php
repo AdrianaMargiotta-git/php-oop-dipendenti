@@ -24,7 +24,7 @@
             }
             public function setName($name) {
                 if (strlen($name) < 3) {
-                    throw new Exception("Please enter a longer name");
+                    throw new MoreCharactersName("Please enter a longer name");
                 }
                 $this -> name = $name;
             }
@@ -33,7 +33,7 @@
             }
             public function setLastname($lastname) {
                 if (strlen($lastname) < 3) {
-                    throw new Exception("Please enter a longer surname");
+                    throw new MoreCharactersLastname("Please enter a longer surname");
                 }
                 $this -> lastname = $lastname;
             }
@@ -60,7 +60,7 @@
                     . 'securyLvl: ' . $this -> getSecuryLvl() . '<br>';
             }
         }
-        // VERSIONE 1
+        
         class Employee extends Person {
             private $ral;
             private $mainTask;
@@ -78,12 +78,8 @@
                 return $this -> $ral;
             }
             public function setRal($ral) {
-                // if ($ral = max(min($ral, 100000), 10000)) {
-                //     throw new Exception("number not included in the range");
-                // }
-
                 if (is_numeric($ral) && $ral < 10000 || $ral > 100000) {
-                    throw new Exception("number not included in the range");
+                    throw new RangeOfNumbers("number not included in the range");
                 }
 
                 $this -> ral = $ral;
@@ -172,32 +168,26 @@
             }                    
         }
 
+        class MoreCharactersName extends Exception{}
+        class MoreCharactersLastname extends Exception{}
+        class RangeOfNumbers extends Exception{}
+
+        // person ($name, $lastname, $dateOfBirth, $securyLvl)
         try {
-            $p1 = new Person(
-                'Mario',
-                'Rossi',
-                '(p)dateOfBirth',
-                '(p)securyLvl',
-            );
+            $p1 = new Person('Mario', 'Rossi', '(p)dateOfBirth', '(p)securyLvl');
             echo 'Person: ' . '<br>' . $p1 . '<br>';
-        } catch (Exception $e) {
+        } catch (MoreCharactersName |  MoreCharactersLastname $e) {
             echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
         }
 
+        //employee ($name, $lastname, $dateOfBirth, $securyLvl, $ral, $mainTask, $idCode, $dateOfHiring)
         try {
-            $e1 = new Employee(
-                '(e)name',
-                '(e)lastname',
-                '(e)dateOfBirth',
-                '(e)securyLvl',
-                '10000',
-                '(e)mainTask',
-                '(e)idCode',
-                '(e)dateOfHiring',
-            );
+            $e1 = new Employee('(eee', '(e)lastname', '(e)dateOfBirth', '(e)securyLvl', '10000', '(e)mainTask', '(e)idCode', '(e)dateOfHiring');
             echo 'Employee:<br>' . $e1 . '<br><br>';
-        } catch (Exception $e) {
-           echo 'ERROR';
+        } catch (MoreCharactersName |  MoreCharactersLastname $e) {
+            echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
+        } catch (RangeOfNumbers $e) {
+            echo 'ERROR: The number must be between 10,000 and 100,000' . '<br>';
         }
         
 
