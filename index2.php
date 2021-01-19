@@ -162,6 +162,9 @@
                 return $this -> employees;
             }
             public function setEmployees($employees) {
+                if (empty($employees)) {
+                  throw new BossEmployee('Boss must have employees');
+                }
                 $this -> employees = $employees;
             }
             public function __toString() {
@@ -187,6 +190,7 @@
         class RangeOfNumbers extends Exception{}
         class SecuryEmployee extends Exception {}
         class SecuryBoss extends Exception {}
+        class BossEmployee extends Exception {}
 
         // person ($name, $lastname, $dateOfBirth, $securyLvl)
         try {
@@ -220,6 +224,8 @@
             echo 'ERROR: The number must be between 10.000 and 100.000' . '<br>';
         } catch (SecuryBoss $e) {
             echo 'ERROR: The secury level must be between 6 and 10' . '<br>';
+        } catch (BossEmployee $e) {
+            echo 'ERROR: ';
         }
         
     ?>
