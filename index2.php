@@ -74,6 +74,13 @@
                 $this -> setIdCode($idCode);
                 $this -> setDateOfHiring($dateOfHiring);
             }
+
+            public function setSecuryEmployee($securyLvl) {
+                if (is_numeric($securyLvl) && $securyLvl < 1 || $securyLvl > 5) {
+                    throw new SecuryEmployee("security level not included in the range");
+                }
+            }
+
             public function getRal() {
                 return $this -> $ral;
             }
@@ -126,6 +133,13 @@
                 $this -> setSector($sector);
                 $this -> setEmployees($employees);
             }
+
+            public function setSecuryBoss($securyLvl) {
+                if ((!is_int($securyLvl)) || $securyLvl < 6 || $securyLvl > 10) {
+                    throw new SecuryBoss("security level not included in the range");
+                }
+            }
+
             public function getProfit() {
                 return $this -> profit;
             }
@@ -171,10 +185,12 @@
         class MoreCharactersName extends Exception{}
         class MoreCharactersLastname extends Exception{}
         class RangeOfNumbers extends Exception{}
+        class SecuryEmployee extends Exception {}
+        class SecuryBoss extends Exception {}
 
         // person ($name, $lastname, $dateOfBirth, $securyLvl)
         try {
-            $p1 = new Person('Mario', 'Rossi', '(p)dateOfBirth', '(p)securyLvl');
+            $p1 = new Person('Mario', 'Rossi', '01-01-2001', '1');
             echo 'Person: ' . '<br>' . $p1 . '<br>';
         } catch (MoreCharactersName |  MoreCharactersLastname $e) {
             echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
@@ -182,37 +198,30 @@
 
         //employee ($name, $lastname, $dateOfBirth, $securyLvl, $ral, $mainTask, $idCode, $dateOfHiring)
         try {
-            $e1 = new Employee('(eee', '(e)lastname', '(e)dateOfBirth', '(e)securyLvl', '10000', '(e)mainTask', '(e)idCode', '(e)dateOfHiring');
+            $e1 = new Employee('Jae-yong', 'Lee', '20-20-1970', '4', '10000', 'Employee', '00999', '19/01/2020');
+            $e1 -> setSecuryEmployee(4);
             echo 'Employee:<br>' . $e1 . '<br><br>';
         } catch (MoreCharactersName |  MoreCharactersLastname $e) {
             echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
         } catch (RangeOfNumbers $e) {
-            echo 'ERROR: The number must be between 10,000 and 100,000' . '<br>';
+            echo 'ERROR: The number must be between 10.000 and 100.000' . '<br>';
+        } catch (SecuryEmployee $e) {
+            echo 'ERROR: The secury level must be between 1 and 5' . '<br>';
+        }
+
+        //boss ($name, $lastname, $dateOfBirth, $securyLvl, $ral, $mainTask, $idCode, $dateOfHiring, $profit, $vacancy, $sector, $employees = [])
+        try {
+            $b1 = new Boss('Adriana', 'Margiotta', '19-12-1997', '10', '100000', 'Boos', '00001', '15-09-201', 'forever', 'IT', [$e1]);
+            $b1 -> setSecuryBoss(10);
+            echo 'Boss:<br>' . $b1 . '<br><br>';
+        } catch (MoreCharactersName |  MoreCharactersLastname $e) {
+            echo 'ERROR: Please enter a longer name and/or surname' . '<br>';
+        } catch (RangeOfNumbers $e) {
+            echo 'ERROR: The number must be between 10.000 and 100.000' . '<br>';
+        } catch (SecuryBoss $e) {
+            echo 'ERROR: The secury level must be between 6 and 10' . '<br>';
         }
         
-
-    
-        // $b1 = new Boss(
-        //     '(b)Mario',
-        //     '(b)Rossi',
-        //     '(b)dateOfBirth',
-        //     '(b)securyLvl',
-        //     '(b)ral',
-        //     '(b)mainTask',
-        //     '(b)idCode',
-        //     '(b)dateOfHiring',
-        //     '(b)profit', 
-        //     '(b)vacancy', 
-        //     '(b)sector', 
-        //     [
-        //         $e1,
-        //         $e1,
-        //         $e1,
-        //         $e1,
-        //     ]
-        // );
-        // echo 'b1:<br>' . $b1 . '<br><br>';
-
     ?>
     
 </body>
